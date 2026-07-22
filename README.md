@@ -1,5 +1,7 @@
 # securesync 🔐
 
+[![CI](https://github.com/mojtaba-py-code/vault_back/actions/workflows/ci.yml/badge.svg)](https://github.com/mojtaba-py-code/vault_back/actions/workflows/ci.yml)
+
 A secure, encrypted, deduplicating backup & restore tool (CLI).
 
 Data is encrypted **before** it is written to the repository. A stolen backup
