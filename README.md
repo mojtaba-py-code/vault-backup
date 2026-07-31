@@ -1,6 +1,6 @@
 # securesync 🔐
 
-[![CI](https://github.com/mojtaba-py-code/vault_back/actions/workflows/ci.yml/badge.svg)](https://github.com/mojtaba-py-code/vault_back/actions/workflows/ci.yml)
+[![CI](https://github.com/mojtaba-py-code/vault-backup/actions/workflows/ci.yml/badge.svg)](https://github.com/mojtaba-py-code/vault-backup/actions/workflows/ci.yml)
 
 A secure, encrypted, deduplicating backup & restore tool (CLI).
 
