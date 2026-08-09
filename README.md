@@ -1,8 +1,14 @@
-# securesync 🔐
+# SecureSync 🔐
 
 [![CI](https://github.com/mojtaba-py-code/vault-backup/actions/workflows/ci.yml/badge.svg)](https://github.com/mojtaba-py-code/vault-backup/actions/workflows/ci.yml)
+[![Python](https://img.shields.io/badge/python-3.11%20%7C%203.12-blue.svg)](https://www.python.org)
+[![Types: mypy](https://img.shields.io/badge/types-mypy%20strict-blue.svg)](https://mypy-lang.org)
+[![Code style: ruff](https://img.shields.io/badge/lint-ruff-black.svg)](https://github.com/astral-sh/ruff)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 A secure, encrypted, deduplicating backup & restore tool (CLI).
+
+> Repository `vault-backup` · Python package and CLI command `securesync`.
 
 Data is encrypted **before** it is written to the repository. A stolen backup
 repository reveals nothing without the password.
