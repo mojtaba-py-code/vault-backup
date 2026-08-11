@@ -39,6 +39,19 @@ repository reveals nothing without the password.
 If you lose your password, your backups are **permanently unrecoverable** by
 design. There is no backdoor. Store the password safely.
 
+## What a session looks like
+
+A 10 MB tree with one duplicated file, backed up twice — the second run after
+appending a single line to one file:
+
+![Terminal session: init, two backups, list, verify and a restore that comes
+back byte-identical](docs/images/session.png)
+
+Worth noticing in that output: the duplicate file cost one deduplicated chunk
+rather than a second copy, the incremental run re-read 2 MB instead of 10 MB
+because four files were unchanged, and the restored tree compared byte-identical
+to the source. The repository holds both snapshots in 7.8 MB.
+
 ## Install
 
 ```bash
