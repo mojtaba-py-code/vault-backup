@@ -47,3 +47,7 @@ ignore = ["S101"]  # allow assert in tests
 [tool.mypy]
 python_version = "3.11"
 strict = true
+
+[tool.bandit]
+# Tests deliberately exercise weak inputs and assert on failure paths.
+exclude_dirs = ["tests"]
