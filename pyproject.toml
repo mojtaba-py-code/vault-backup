@@ -11,7 +11,7 @@ requires-python = ">=3.11"
 license = { text = "MIT" }
 authors = [{ name = "Mojtaba" }]
 dependencies = [
-    "cryptography>=42",
+    "cryptography>=50.0.0",
     "argon2-cffi>=23",
 ]
 
