@@ -29,8 +29,13 @@ jobs:
         run: python -m ruff check src tests
       - name: Type-check (mypy --strict)
         run: python -m mypy src
+      # The floor sits below the current number on purpose: it catches a real
+      # drop in tested code without failing on a line or two of platform-
+      # specific code that only one leg of the matrix executes.
       - name: Tests
-        run: python -m pytest -q --cov=securesync --cov-report=term-missing
+        run: >-
+          python -m pytest -q --cov=securesync --cov-report=term-missing
+          --cov-fail-under=80
 
   security:
     name: Security scan

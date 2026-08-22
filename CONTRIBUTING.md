@@ -18,8 +18,11 @@ These are exactly the steps CI runs, so run them locally first:
 ```bash
 ruff check src tests
 mypy src                          # strict mode
-pytest -q --cov=securesync --cov-report=term-missing
+pytest -q --cov=securesync --cov-report=term-missing --cov-fail-under=80
 ```
+
+Coverage currently sits well above that floor; the gate is there so a change
+cannot quietly ship untested code.
 
 CI runs the same matrix on Linux, Windows and macOS against Python 3.11 and
 3.12 — the tool is cross-platform, so avoid POSIX-only path or permission
