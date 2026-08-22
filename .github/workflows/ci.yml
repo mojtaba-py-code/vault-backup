@@ -49,6 +49,22 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
+      # A backup tool that leaks a private key defeats its own purpose, so the
+      # tracked tree is grepped for key blocks and provider tokens before any
+      # other scan runs.  Deliberately dependency-free: no third-party action,
+      # nothing to pin, nothing new to trust.
+      # The character classes below (``[_]``, ``[A-Z ]*``) keep the patterns
+      # from matching this file itself, so nothing has to be excluded.
+      - name: Secret scan
+        run: |
+          if git grep -nIE \
+            '(-----BEGIN [A-Z ]*PRIVATE KEY-----|AKIA[0-9A-Z]{16}|ghp_[A-Za-z0-9]{36}|xox[abprs]-[0-9A-Za-z-]{10,}|"private[_]key"[[:space:]]*:)' \
+            -- .; then
+            echo "::error::possible secret committed to the repository"
+            exit 1
+          fi
+          echo "No committed secrets found."
+
       - name: Set up Python
         uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
         with:
