@@ -15,8 +15,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   dependency tree fails the build.
 - Weekly scheduled pipeline run, so an advisory published after the last commit
   still turns the build red.
-- Dependency-free secret scan that fails the build on a committed private key
-  block or provider token.
+- Dependency-free secret scan across every reachable commit, not only the
+  checked-out tip: a private key block, an AWS access key id, a GitHub, Slack,
+  Google or OpenAI token, or a long value assigned to a secret-sounding name
+  fails the build even when a later commit deleted the line.
 - Coverage floor of 80% on the test job.
 - `.mailmap` collapsing the two spellings of the author into one identity.
 
