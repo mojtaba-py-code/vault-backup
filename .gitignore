@@ -21,6 +21,24 @@ ENV/
 .env.*
 !.env.example
 
+# Keys & certificates
+*.pem
+*.key
+*.p12
+*.pfx
+*.crt
+id_rsa*
+credentials.json
+
+# Backup repositories created while trying the tool out locally.  A repository
+# holds the wrapped master key (keys/keyfile.json), sealed manifests (*.snap)
+# and every encrypted chunk -- none of that belongs in version control.
+repo/
+repos/
+test-repo/
+keyfile.json
+*.snap
+
 # Databases
 *.db
 *.sqlite
