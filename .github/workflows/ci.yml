@@ -60,11 +60,27 @@ jobs:
       # thing worth checking.  Deliberately dependency-free: no third-party
       # action, nothing to pin, nothing new to trust.
       # The character classes below (``[_]``, ``[A-Z ]*``) keep the patterns
-      # from matching this file itself, so nothing has to be excluded.
+      # from matching this file itself, so nothing has to be excluded: every
+      # literal here runs into a ``[`` or a ``|`` at the point where a real
+      # credential would continue, and neither can carry the match on.
       - name: Secret scan
         run: |
-          if git grep -nIE \
-            '(-----BEGIN [A-Z ]*PRIVATE KEY-----|AKIA[0-9A-Z]{16}|ghp_[A-Za-z0-9]{36}|xox[abprs]-[0-9A-Za-z-]{10,}|"private[_]key"[[:space:]]*:)' \
+          # Recognisable key material, plus a long value assigned to a
+          # secret-sounding name.  Matched case-insensitively, so an
+          # upper-case API_KEY= in a dotenv file is caught as well.
+          patterns='-----BEGIN [A-Z ]*PRIVATE KEY-----'
+          patterns="$patterns"'|AKIA[0-9A-Z]{16}'
+          # gh[pousr]_ covers the classic ghp_ token and the newer personal,
+          # OAuth, user, server and refresh variants alike.
+          patterns="$patterns"'|gh[pousr]_[A-Za-z0-9]{30,}'
+          patterns="$patterns"'|github_pat_[A-Za-z0-9_]{30,}'
+          patterns="$patterns"'|xox[abprs]-[0-9A-Za-z-]{10,}'
+          patterns="$patterns"'|AIza[0-9A-Za-z_-]{35}'
+          patterns="$patterns"'|sk-[A-Za-z0-9]{32,}'
+          patterns="$patterns"'|"private[_]key"[[:space:]]*:'
+          patterns="$patterns"'|(api[_-]?key|secret|token|passwd|password)[[:space:]]*[:=][[:space:]]*["]?[A-Za-z0-9/+_=-]{20,}'
+
+          if git grep -nIEi -e "$patterns" \
             $(git rev-list --all); then
             echo "::error::possible secret committed to the repository"
             echo "Rotate it first: deleting the commit does not un-publish it."
