@@ -100,3 +100,7 @@ pytest            # run tests
 ruff check .      # lint (incl. security rules)
 mypy src          # type-check
 ```
+
+58 tests cover the crypto envelope and keystore, the block format and compression,
+incremental backup and pruning, crash-safe atomic writes, and traversal-safe restores,
+with an 80 % coverage floor enforced in CI — under the floor the build fails.
